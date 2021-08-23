@@ -1,0 +1,1 @@
+java -jar bytebank-api.jar --server.port=8080 --user.password=2000

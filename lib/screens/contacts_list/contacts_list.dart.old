@@ -1,0 +1,55 @@
+import 'package:bytebankapp/screens/forms/contact_form.dart';
+import 'package:flutter/material.dart';
+
+class ContactsList extends StatelessWidget {
+  const ContactsList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    // container da Estrutura da Página
+    return Scaffold(
+      // Adiciona a barra de título da Página
+      appBar: AppBar(
+        // Titulo do AppBar
+        title: Text('Contatos'),
+      ),
+      // Corpo da Página de listagens é um Listview
+      // Listview tem childrem
+      // Dentro do Childrem colocamos um card para conteúdo
+      // Card tem Child
+      // dentro do Child colocamos o ListTile com as linhas
+      body: ListView(
+        children: <Widget>[
+          Card(
+            child: ListTile(
+              // aqui usamos strings de teste.
+              title: Text(
+                'Magno',
+                style: TextStyle(fontSize: 24.0),
+              ),
+              subtitle: Text(
+                '47 996119391',
+                style: TextStyle(fontSize: 16.0),
+              ),
+            ),
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        //Codigo do floating Button Cuidar com os ( e {
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return ContactsForm();
+              },
+            ),
+          ).then((newContact) => debugPrint(
+                newContact.toString(),
+              ));
+        },
+        child: Icon(Icons.add),
+      ),
+    );
+  }
+}
