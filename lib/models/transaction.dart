@@ -1,4 +1,4 @@
-import 'package:bytebankapp/models/contatos.dart';
+import 'package:alura_crashlytics/models/contatos.dart';
 
 class Transaction {
   final String id;

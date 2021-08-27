@@ -1,13 +1,15 @@
 import 'dart:async';
 
-import 'package:bytebankapp/components/confirm_transaction_auth_dialog.dart';
-import 'package:bytebankapp/components/response_dialog.dart';
-import 'package:bytebankapp/components/waiting.dart';
-import 'package:bytebankapp/http/web_clients/transaction_webclient.dart';
-import 'package:bytebankapp/models/contatos.dart';
-import 'package:bytebankapp/models/transaction.dart';
+import 'package:alura_crashlytics/components/confirm_transaction_auth_dialog.dart';
+import 'package:alura_crashlytics/components/response_dialog.dart';
+import 'package:alura_crashlytics/components/waiting.dart';
+import 'package:alura_crashlytics/http/web_clients/transaction_webclient.dart';
+import 'package:alura_crashlytics/models/contatos.dart';
+import 'package:alura_crashlytics/models/transaction.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class TransactionForm extends StatefulWidget {
   final Contato contato;
@@ -21,6 +23,8 @@ class TransactionForm extends StatefulWidget {
 class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController _valueController = TextEditingController();
   final TransactionWebClient _transactionWebClient = TransactionWebClient();
+  final _ScaffoldState = GlobalKey<ScaffoldState>();
+
 
   // gerador de UUID;
 
@@ -32,6 +36,7 @@ class _TransactionFormState extends State<TransactionForm> {
   Widget build(BuildContext context) {
     print('Transaction Form ID: $transactionId');
     return Scaffold(
+      key: _ScaffoldState,
       appBar: AppBar(
         title: Text('New transaction'),
       ),
@@ -162,21 +167,53 @@ class _TransactionFormState extends State<TransactionForm> {
     )
         // Get de erro específico
         .catchError((e) {
+      // Criando erros para o Firebase Analisando na WEB
+      _FirebaseTWC(e, transactionCreated);
+
       _ShowFailMessage(context, mensagem: 'Timeout HTTP');
     }, test: (e) => e is TimeoutException)
         // Get de erro mais geral.
         .catchError((e) {
+      // Criando erros para o Firebase Analisando na WEB
+      _FirebaseTWC(e, transactionCreated);
       _ShowFailMessage(context, mensagem: e.toString());
     }, test: (e) => e is Exception)
         // Get Genérico dos erros
         .catchError((e) {
+      // Criando erros para o Firebase Analisando na WEB
+      _FirebaseTWC(e, transactionCreated);
       _ShowFailMessage(context);
     });
     return transaction;
   }
 
-  void _ShowFailMessage(BuildContext context,
+  // Gera o Erro do Firebase
+  void _FirebaseTWC(e, Transaction transactionCreated) {
+    if (FirebaseCrashlytics.instance.isCrashlyticsCollectionEnabled) {
+      // Criando erros para o Firebase Analisando na WEB
+      FirebaseCrashlytics.instance.setCustomKey('HTTPError', e.toString());
+      FirebaseCrashlytics.instance
+          .setCustomKey('Transaction', transactionCreated.toString());
+      FirebaseCrashlytics.instance.recordError(e, null);
+    }
+  }
+
+  void _ShowFailMessage (BuildContext context,
       {String mensagem = 'Erro desconhecido'}) {
+
+    final _snackBar = SnackBar(content: Text(mensagem));
+    ScaffoldMessenger.of(context).showSnackBar(_snackBar);
+
+    Fluttertoast.showToast(
+        msg: mensagem,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+
     showDialog(
         context: (context),
         builder: (contextDialog) {

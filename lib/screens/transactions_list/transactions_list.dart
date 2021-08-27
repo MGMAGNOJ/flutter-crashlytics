@@ -1,7 +1,7 @@
-import 'package:bytebankapp/components/centered_message.dart';
-import 'package:bytebankapp/components/waiting.dart';
-import 'package:bytebankapp/http/web_clients/transaction_webclient.dart';
-import 'package:bytebankapp/models/transaction.dart';
+import 'package:alura_crashlytics/components/centered_message.dart';
+import 'package:alura_crashlytics/components/waiting.dart';
+import 'package:alura_crashlytics/http/web_clients/transaction_webclient.dart';
+import 'package:alura_crashlytics/models/transaction.dart';
 import 'package:flutter/material.dart';
 
 class TransactionsList extends StatelessWidget {

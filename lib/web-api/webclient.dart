@@ -1,4 +1,4 @@
-import 'package:bytebankapp/http/interceptors/Interceptor.dart';
+import 'package:alura_crashlytics/http/interceptors/Interceptor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http/http.dart';

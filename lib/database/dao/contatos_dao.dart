@@ -1,5 +1,5 @@
-import 'package:bytebankapp/database/database.dart';
-import 'package:bytebankapp/models/contatos.dart';
+import 'package:alura_crashlytics/database/database.dart';
+import 'package:alura_crashlytics/models/contatos.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ContatoDAO {

@@ -1,5 +1,5 @@
-import 'package:bytebankapp/database/dao/contatos_dao.dart';
-import 'package:bytebankapp/models/contatos.dart';
+import 'package:alura_crashlytics/database/dao/contatos_dao.dart';
+import 'package:alura_crashlytics/models/contatos.dart';
 import 'package:flutter/material.dart';
 
 class ContactsForm extends StatefulWidget {

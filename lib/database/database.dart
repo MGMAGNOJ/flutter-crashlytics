@@ -1,4 +1,4 @@
-import 'package:bytebankapp/database/dao/contatos_dao.dart';
+import 'package:alura_crashlytics/database/dao/contatos_dao.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

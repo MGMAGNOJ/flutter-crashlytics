@@ -1,4 +1,4 @@
-name: bytebankapp
+name: alura_crashlytics
 description: Projeto ByteBank 2 ( SQLite )
 
 # The following line prevents the package from being accidentally published to
@@ -25,19 +25,22 @@ dependencies:
     sdk: flutter
   sqflite:
   path:
-  uuid: 3.0.4
-
+  uuid:
+  firebase_core:
+  firebase_crashlytics:
+  fluttertoast:
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  http: ^0.13.3
-  http_interceptor: ^1.0.2
+  cupertino_icons:
+  http:
+  http_interceptor:
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
   
 
